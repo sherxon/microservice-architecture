@@ -6,7 +6,11 @@
 
     <groupId>microservice-architecture</groupId>
     <artifactId>microservice-architecture-parent</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>configserver</module>
+    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
