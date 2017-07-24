@@ -4,12 +4,13 @@ spring:
   application:
     name: config-server
   profiles:
-    active: native
+    active: native # needed if remote config is in filesystem
   cloud:
     config:
       server:
         native:
           searchLocations: file:D:/IdeaProjects/sample-config/
+        bootstrap: true # this tells config server to get its own config from remote repository
 
 
 

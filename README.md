@@ -10,4 +10,18 @@ It includes:
 [Sample Spring Boot Application]()
   
 ### Config Server Overview: 
-  
+
+Once we run our config server at 8888 port, we can get see all configs using following rules in json format.  
+ 
+**application** is the name of service defined by `spring.application.name` (also equal to `spring.cloud.config.name`) in config file.  
+**profile** is the name of profiles set by `spring.profiles.active` on the client side , separated by comma  
+**label** is the label name to pull remote config files. if it is git label is _master_ by default 
+ 
+/{application}/{profile}[/{label}] such as http://localhost:8888/api-gateway/default  
+/{application}-{profile}.yml  
+/{label}/{application}-{profile}.yml  
+/{application}-{profile}.properties  
+/{label}/{application}-{profile}.properties    
+
+#### Tweaks
+If you want to store remote config in filesystem, besides providing git repo url you should also use `spring.profiles.active.native` profile
