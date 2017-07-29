@@ -11,7 +11,7 @@ It includes:
   
 ### Config Server Overview: 
 
-Once we run our config server at 8888 port, we can get see all configs using following rules in json format.  
+Once we run our config server at default 8888 port, we can get all configs using following rules in json format.  
  
 **application** is the name of service defined by `spring.application.name` (also equal to `spring.cloud.config.name`) in config file.  
 **profile** is the name of profiles set by `spring.profiles.active` on the client side , separated by comma  
