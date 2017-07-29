@@ -6,24 +6,38 @@ It includes:
 
 [Config Server]() => Spring Cloud Config  
 [API GateWay]() => Zuul by Netflix  
-[Service Discovery]() => Eureka by Netflix  
+[Service Registry]() => Eureka by Netflix  
 [Sample Spring Boot Application]()
   
 ### Overview
 
 I have added all above mentioned micro services into one parent project just to make it easy to manage in one place. 
 As it is just a POC project, it does not have much business logic abd heavy requirements. You can still run each 
-micro service independently in order.  
+micro service independently.
 
 Here are short overviews:  
 
-Config Server    
-[//]: # (This may be the most platform independent comment)  
-[comment]: <> (This is a comment, it will not be included)  
-[comment]: <> (in  the output file unless you use it in)  
-[comment]: <> (a reference style link.)  
+**Config Server** is used to store configurations of all micro services in one centralized place. You can keep and change   
+configuration of any micro service such as database credentials and network location in externalized place and restart the service to pull new configuration.  
+
+**Api Gateway (Zuul)** is the implementation of Backend for Front-End pattern. Main motive to use Api Gateway is to have one edge service 
+for clients and still manage a number of service instances and their locations (host+port) which change dynamically. 
+
+**Service Registry** is a service that keeps track of all other micro service instances, their location and health. All micro 
+services register themselves with their information to Service Registry at startup and is deregistered if Service Registry 
+cannot reach at certain point. Client Services such as Api Gateway ask Service Registry for location of available micro service
+instance. Eureka is used in this project as an implementation of Service Registry.
+
+<!---
+application vs bootstrap property files
+different profiles cannot be used with properties
+place all your source code inside certain package in all projects.
+component scan problem
+-->
 
 ##### Basics  
+All micro services are spring boot applications with dependencies managed by maven. Each Service has bootstrap.yml 
+file which stores minimum required configuration for each service.  
 
 
 ### Config Server Overview: 

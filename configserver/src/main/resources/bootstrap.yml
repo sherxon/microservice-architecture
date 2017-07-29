@@ -11,8 +11,10 @@ spring:
         native:
           searchLocations: file:D:/IdeaProjects/sample-config/
         bootstrap: true # this tells config server to get its own config from remote repository
-
-
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
 
 # this is for getting configuration from github
 #spring:

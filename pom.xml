@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>configserver</module>
+        <module>service-registry</module>
     </modules>
 
     <parent>
