@@ -17,11 +17,11 @@ Once we run our config server at default 8888 port, we can get all configs using
 **profile** is the name of profiles set by `spring.profiles.active` on the client side , separated by comma  
 **label** is the label name to pull remote config files. if it is git label is _master_ by default 
  
-/{application}/{profile}[/{label}] such as http://localhost:8888/api-gateway/default  
-/{application}-{profile}.yml  
+`/{application}/{profile}[/{label}]` such as http://localhost:8888/api-gateway/default  
+`/{application}-{profile}.yml  
 /{label}/{application}-{profile}.yml  
 /{application}-{profile}.properties  
-/{label}/{application}-{profile}.properties    
+/{label}/{application}-{profile}.properties`
 
 #### Tweaks
 If you want to store remote config in filesystem, besides providing git repo url you should also use `spring.profiles.active.native` profile
