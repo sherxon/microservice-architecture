@@ -1,6 +1,6 @@
-##  POC: Microservice Architecture Pattern using Spring Boot and netflix technologies
+##  POC: Microservice Architecture Pattern using Spring Boot and netflix technologies and helpful hints
 
-This project can be used as showcase or Proof of Concept to build and manage microservices using Spring Boot.
+This project can be used as showcase or Proof of Concept to build and manage micro services using Spring Boot.
 
 It includes:    
 
@@ -9,39 +9,31 @@ It includes:
 [Service Registry]() => Eureka by Netflix  
 [Sample Spring Boot Application]()
   
-### Overview
+### General Overview
+
+All micro services are spring boot applications with dependencies managed by maven. Each Service has bootstrap.yml 
+file which stores minimum required configuration for each service.  
 
 I have added all above mentioned micro services into one parent project just to make it easy to manage in one place. 
 As it is just a POC project, it does not have much business logic abd heavy requirements. You can still run each 
 micro service independently.
 
-Here are short overviews:  
+#### General Hints
+* Use `.yml` files instead of `.properties`, so you can write more than one profile configurations with `---` 
+between them in one yml file and of course shorter code.     
+* Keep all your source code always in certain package, not in source root.   
+
+### Config Server OverView
 
 **Config Server** is used to store configurations of all micro services in one centralized place. You can keep and change   
-configuration of any micro service such as database credentials and network location in externalized place and restart the service to pull new configuration.  
+configuration of any micro service such as database credentials and network location in externalized place and restart the service
+ to pull new configuration.  
 
-**Api Gateway (Zuul)** is the implementation of Backend for Front-End pattern. Main motive to use Api Gateway is to have one edge service 
-for clients and still manage a number of service instances and their locations (host+port) which change dynamically. 
-
-**Service Registry** is a service that keeps track of all other micro service instances, their location and health. All micro 
-services register themselves with their information to Service Registry at startup and is deregistered if Service Registry 
-cannot reach at certain point. Client Services such as Api Gateway ask Service Registry for location of available micro service
-instance. Eureka is used in this project as an implementation of Service Registry.
-
-<!---
-application vs bootstrap property files
-different profiles cannot be used with properties
-place all your source code inside certain package in all projects.
-component scan problem
--->
-
-##### Basics  
-All micro services are spring boot applications with dependencies managed by maven. Each Service has bootstrap.yml 
-file which stores minimum required configuration for each service.  
-
-
-### Config Server Overview: 
-
+To implement externalized configuration pattern I used spring cloud config server and spring cloud config clients. To make 
+any spring boot application a config server you can just add one maven starter dependency and `@EnableEurekaServer` on configuration class. 
+Spring cloud config server serves clients over rest api. Clients need to add spring-cloud-config-client dependency and 
+config server or eureka server ( if you want config server to be discovered by eureka) location. 
+ 
 Once we run our config server at default 8888 port, we can get all configs using following rules in json format.  
  
 **application** is the name of service defined by `spring.application.name` (or `spring.cloud.config.name`) in config file.  
@@ -59,17 +51,33 @@ The followings are key points in configuration and management of config server. 
 I had hard time figuring out in the beginning while building micro service architecture in the company. 
 There are might be some other and better solutions. Please pull request If you know one.  
 
-  
 1. If you want to store remote config in filesystem, 
 besides providing file path: `spring.cloud.config.server.native.searchLocations=file:{path}`, 
 you should also use `spring.profiles.active=native` profile.  
 2. You can just add `spring.cloud.config.server.bootstrap=true` to bootstrap.yml of config server to tell config server to get 
 its configuration from remote file or repository on git.  
-3. Use `@RefreshScope` annotation in each client of config server, including config server itself if you want it to load its configuration 
+3. Use `@RefreshScope` annotation in each client of config server, including config server itself, if you want changed configurations take an 
+affect by sending post request  `/refresh` endpoints. 
 from remote location.  
 4. 
 
-### Service Registry Overview:
- 
- 
 
+##### Helpful Hints
+Application  
+
+### Service Registry Overview:
+  
+**Service Registry** is a service that keeps track of all other micro service instances, their location and health. All micro 
+services register themselves with their information to Service Registry at startup and is deregistered if Service Registry 
+cannot reach at certain point. Client Services such as Api Gateway ask Service Registry for location of available micro service
+instance. Eureka is used in this project as an implementation of Service Registry.  
+
+<!---
+enable self preservation
+-->
+
+
+### Api Gateway Overview 
+
+**Api Gateway (Zuul)** is the implementation of Backend for Front-End pattern. Main motive to use Api Gateway is to have one edge service 
+for clients and still manage a number of service instances and their locations (host+port) which change dynamically. 
