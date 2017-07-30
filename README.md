@@ -46,10 +46,7 @@ Once we run our config server at default 8888 port, we can get all configs using
 `/{application}-{profile}.properties`  
 `/{label}/{application}-{profile}.properties`  
 
-#### Note:
-The followings are key points in configuration and management of config server. These are the ones  
-I had hard time figuring out in the beginning while building micro service architecture in the company. 
-There are might be some other and better solutions. Please pull request If you know one.  
+##### Helpful Hints
 
 1. If you want to store remote config in filesystem, 
 besides providing file path: `spring.cloud.config.server.native.searchLocations=file:{path}`, 
@@ -62,8 +59,7 @@ from remote location.
 4. 
 
 
-##### Helpful Hints
-Application  
+
 
 ### Service Registry Overview:
   
@@ -81,3 +77,12 @@ enable self preservation
 
 **Api Gateway (Zuul)** is the implementation of Backend for Front-End pattern. Main motive to use Api Gateway is to have one edge service 
 for clients and still manage a number of service instances and their locations (host+port) which change dynamically. 
+
+
+
+
+#### Disclaimer
+This project is under MIT licence so you can do whatever you want with it :). Most of ideas and "hints" are just my opinions
+and solutions to problems I have faced up. Thanks to stackoverflow and netflix community.  
+    
+If you think improvement or a change is needed in any part of the project, feel to contribute !      
