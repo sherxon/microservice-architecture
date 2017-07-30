@@ -54,7 +54,7 @@ Once we run our config server at default 8888 port, we can get all configs using
 `/{application}-{profile}.properties`  
 `/{label}/{application}-{profile}.properties`  
 
-#### Note
+#### Note:
 The followings are key points in configuration and management of config server. These are the ones  
 I had hard time figuring out in the beginning while building micro service architecture in the company. 
 There are might be some other and better solutions. Please pull request If you know one.  
@@ -62,6 +62,14 @@ There are might be some other and better solutions. Please pull request If you k
   
 1. If you want to store remote config in filesystem, 
 besides providing file path: `spring.cloud.config.server.native.searchLocations=file:{path}`, 
-you should also use `spring.profiles.active=native` profile.
-2.You can just add `spring.cloud.config.server.bootstrap=true` to bootstrap.yml of config server to tell config server to get 
-its configuration from remote file or repository on git. 
+you should also use `spring.profiles.active=native` profile.  
+2. You can just add `spring.cloud.config.server.bootstrap=true` to bootstrap.yml of config server to tell config server to get 
+its configuration from remote file or repository on git.  
+3. Use `@RefreshScope` annotation in each client of config server, including config server itself if you want it to load its configuration 
+from remote location.  
+4. 
+
+### Service Registry Overview:
+ 
+ 
+
