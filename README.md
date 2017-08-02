@@ -82,7 +82,8 @@ for clients and still manage a number of service instances and their locations (
 
 
 #### Disclaimer
-This project is under MIT licence so you can do whatever you want with it :). Most of ideas and "hints" are just my opinions
+This project is Shareware and distributed under GSL(General Sharewire Licence), which means you can do whatever you want 
+with it once you share it with at least one person :). Most of ideas and "hints" are just my opinions
 and solutions to problems I have faced up. Thanks to stackoverflow and netflix community.  
     
 If you think improvement or a change is needed in any part of the project, feel to contribute !      
