@@ -4,6 +4,9 @@ spring:
   cloud:
     config:
       uri: http://localhost:8899
+      #discovery:
+      #  enabled: true
+      #  service-id: config-server
 eureka:
   server:
     enable-self-preservation: false

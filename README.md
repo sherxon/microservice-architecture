@@ -90,7 +90,7 @@ In this project, Eureka server loads its configuration from Config Server and at
 
 **Api Gateway (Zuul)** is the implementation of Backend for Front-End pattern. Main motive to use Api Gateway is to have one edge service 
 for clients and still manage a number of service instances and their locations (host+port) which change dynamically. 
-
+To learn more about this, check this out [Pattern: API Gateway](http://microservices.io/patterns/apigateway.html)
 
 
 

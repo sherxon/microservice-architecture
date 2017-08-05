@@ -11,6 +11,7 @@
     <modules>
         <module>configserver</module>
         <module>service-registry</module>
+        <module>apigateway</module>
     </modules>
 
     <parent>
