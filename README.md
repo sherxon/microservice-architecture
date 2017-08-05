@@ -9,7 +9,7 @@ It includes:
 [Service Registry]() => Eureka by Netflix  
 [Sample Spring Boot Application]()
 
-  If you are not familiar with micro service architecture pattern, I recommend reading [Microservice Architecture](http://microservices.io/patterns/microservices.html)   
+  If you are not familiar with micro service architecture pattern, I recommend 3 min reading [Microservice Architecture](http://microservices.io/patterns/microservices.html)   
   first by Chris Richardson. 
   
 ### General Overview
@@ -25,7 +25,7 @@ This is [Config First Bootstrap](https://cloud.spring.io/spring-cloud-config/spr
 should run Config Server first and Eureka Server second then Api Gateway and other micro services. 
 You may see runtime exceptions thrown by Config Server when you run it until Eureka Server runs and Config server register itself.
 
-#### General Hints
+#### Helpful Hints
 * Use `.yml` files instead of `.properties`, so you can write more than one profile configurations for each service with `---` 
 between them in one yml file and of course shorter code.     
 * Keep all your source code always in certain package, not in source root to make it scanable by Spring DI   
@@ -34,7 +34,7 @@ between them in one yml file and of course shorter code.
 
 **Config Server** is used to store configurations of all micro services in one centralized place. You can keep and change   
 configuration of any micro service such as database credentials and network location in externalized place and restart the service 
-to pull new configuration.  
+to pull new configuration. To learn more about it check this out [Externalized configuration](http://microservices.io/patterns/externalized-configuration.html) 
 
 To implement externalized configuration pattern I used [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html) and  config clients. To make 
 any spring boot application a config server you can just add one maven starter dependency and `@EnableEurekaServer` on configuration class. 
