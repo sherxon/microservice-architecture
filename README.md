@@ -8,31 +8,38 @@ It includes:
 [API GateWay]() => Zuul by Netflix  
 [Service Registry]() => Eureka by Netflix  
 [Sample Spring Boot Application]()
+
+  If you are not familiar with micro service architecture pattern, I recommend reading [Microservice Architecture](http://microservices.io/patterns/microservices.html)   
+  first by Chris Richardson. 
   
 ### General Overview
 
 All micro services are spring boot applications with dependencies managed by maven. Each Service has bootstrap.yml 
 file which stores minimum required configuration for each service.  
 
-I have added all above mentioned micro services into one parent project just to make it easy to manage in one place. 
-As it is just a POC project, it does not have much business logic abd heavy requirements. You can still run each 
+I have added all above mentioned micro services into one parent project just to make it easy to manage in one place  
+as it is just a POC project, without much business logic abd heavy requirements. You can still run each 
 micro service independently.
 
-#### General Hints
-* Use `.yml` files instead of `.properties`, so you can write more than one profile configurations with `---` 
-between them in one yml file and of course shorter code.     
-* Keep all your source code always in certain package, not in source root.   
+This is [Config First Bootstrap](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html#config-first-bootstrap), so you 
+should run Config Server first and Eureka Server second then Api Gateway and other micro services. 
+You may see runtime exceptions thrown by Config Server when you run it until Eureka Server runs and Config server register itself.
 
-### Config Server OverView
+#### General Hints
+* Use `.yml` files instead of `.properties`, so you can write more than one profile configurations for each service with `---` 
+between them in one yml file and of course shorter code.     
+* Keep all your source code always in certain package, not in source root to make it scanable by Spring DI   
+
+### Config Server OverView 
 
 **Config Server** is used to store configurations of all micro services in one centralized place. You can keep and change   
-configuration of any micro service such as database credentials and network location in externalized place and restart the service
- to pull new configuration.  
+configuration of any micro service such as database credentials and network location in externalized place and restart the service 
+to pull new configuration.  
 
 To implement externalized configuration pattern I used spring cloud config server and spring cloud config clients. To make 
 any spring boot application a config server you can just add one maven starter dependency and `@EnableEurekaServer` on configuration class. 
 Spring cloud config server serves clients over rest api. Clients need to add spring-cloud-config-client dependency and 
-config server or eureka server ( if you want config server to be discovered by eureka) location. 
+config server or eureka server ( if you want config server to be discovered by eureka) location in bootstrap.yml 
  
 Once we run our config server at default 8888 port, we can get all configs using following rules in json format.  
  
@@ -46,7 +53,7 @@ Once we run our config server at default 8888 port, we can get all configs using
 `/{application}-{profile}.properties`  
 `/{label}/{application}-{profile}.properties`  
 
-##### Helpful Hints
+##### Attention
 
 1. If you want to store remote config in filesystem, 
 besides providing file path: `spring.cloud.config.server.native.searchLocations=file:{path}`, 
@@ -56,7 +63,8 @@ its configuration from remote file or repository on git.
 3. Use `@RefreshScope` annotation in each client of config server, including config server itself, if you want changed configurations take an 
 affect by sending post request  `/refresh` endpoints. 
 from remote location.  
-4. 
+4. Config Server does not cache configurations, it reads from remote location (git or filesystem) for each request. 
+5. 
 
 
 
@@ -72,6 +80,12 @@ instance. Eureka is used in this project as an implementation of Service Registr
 enable self preservation
 -->
 
+I dont have to write a lot about Eureka Server, you can read this awesome [Spring Cloud Netflix Eureka - The Hidden Manual](http://blog.abhijitsarkar.org/technical/netflix-eureka/) 
+blog by Abhijit Sarkar and get thorough understanding about Eureka Server.   
+
+In this project, Eureka server loads its configuration from Config Server and at the same time Config Server is eureka client.
+
+ 
 
 ### Api Gateway Overview 
 
