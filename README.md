@@ -36,7 +36,7 @@ between them in one yml file and of course shorter code.
 configuration of any micro service such as database credentials and network location in externalized place and restart the service 
 to pull new configuration.  
 
-To implement externalized configuration pattern I used spring cloud config server and spring cloud config clients. To make 
+To implement externalized configuration pattern I used [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html) and  config clients. To make 
 any spring boot application a config server you can just add one maven starter dependency and `@EnableEurekaServer` on configuration class. 
 Spring cloud config server serves clients over rest api. Clients need to add spring-cloud-config-client dependency and 
 config server or eureka server ( if you want config server to be discovered by eureka) location in bootstrap.yml 
@@ -65,7 +65,6 @@ affect by sending post request  `/refresh` endpoints.
 from remote location.  
 4. Config Server does not cache configurations, it reads from remote location (git or filesystem) for each request. 
 5. 
-
 
 
 
