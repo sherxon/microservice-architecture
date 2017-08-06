@@ -77,7 +77,16 @@ instance. Eureka is used in this project as an implementation of Service Registr
 
 <!---
 enable self preservation
+
+Hysterix
+https://github.com/Netflix/Hystrix/wiki/Configuration
+
 -->
+#### Attention
+* `@EnableEurekaClient`==`@EnableDiscoveryClient` makes spring boot app both instance (i.e. it registers itself and change `eureka.instance.*`) and a client
+ (i.e. it can query the registry to locate other services and change `eureka.client.*` ).    
+* if you want to enable `eureka.client.healthcheck.enabled=true`, use application.properties for this config, otherwise you 
+can see UNKNOWN status on Eureka dashboard. 
 
 I dont have to write a lot about Eureka Server, you can read this awesome [Spring Cloud Netflix Eureka - The Hidden Manual](http://blog.abhijitsarkar.org/technical/netflix-eureka/) 
 blog by Abhijit Sarkar and get thorough understanding about Eureka Server.   
